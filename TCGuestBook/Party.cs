@@ -8,37 +8,30 @@ namespace TCGuestBook
 {
     public static class Party
     {
+        public static void WelcomeUser()
+        {
+            Console.WriteLine("Welcome to the Guest Book App");
+            Console.WriteLine("-----------------------------------------------");
+        }
+
         public static Dictionary<string, int> GetPartyInfo()
         {
             bool isDone = false;
+            string anotherParty;
             Dictionary<string, int> guestBook = new Dictionary<string, int>();
 
             do
             {
-                Console.Write("\nEnter the name of the party: ");
-                string name = Console.ReadLine();
+                string name = GetPartyName();
 
-                Console.Write("How many are in your party: ");
-                string partyCountString = Console.ReadLine();
+                int partyCount = GetPartyCount();
 
-                bool isInt = int.TryParse(partyCountString, out int partyCountInt);
-                
-                if (!isInt)
-                {
-                    Console.WriteLine($"\"{partyCountString}\" is not a number. " +
-                        $"Please try again");
-                }
-
-                guestBook[name] = partyCountInt;
+               guestBook.Add(name, partyCount);
 
                 Console.Write("\nIs there another party to enter? (y/n): ");
-                string anotherParty = Console.ReadLine();
+                anotherParty = Console.ReadLine();
 
-                if (anotherParty.ToLower() == "n")
-                {
-                    isDone = true;
-                }
-            } while (!isDone);
+            } while (anotherParty.ToLower() == "y");
 
             return guestBook;
         }
@@ -60,6 +53,42 @@ namespace TCGuestBook
             }
 
             Console.WriteLine($"\nTotal guests: {total}");
+        }
+
+        public static void Goodbye()
+        {
+            Console.WriteLine("\nThank you for using the Guest Book App");
+            Console.WriteLine("Goodbye");
+        }
+
+        private static string GetPartyName()
+        {
+            Console.Write("\nEnter the name of the party: ");
+            string output = Console.ReadLine();
+
+            return output;
+        }
+
+        private static int GetPartyCount()
+        {
+            bool isValid = false;
+            int output = 0;
+
+            do
+            {
+                Console.Write("How many are in your party: ");
+                string partyCountString = Console.ReadLine();
+
+                isValid = int.TryParse(partyCountString, out output);
+
+                if (!isValid)
+                {
+                    Console.WriteLine($"\"{partyCountString}\" is not a valid " +
+                        $"number. Please try again");
+                }
+            } while (!isValid);
+
+            return output;
         }
     }
 }

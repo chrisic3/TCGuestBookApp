@@ -1,13 +1,11 @@
 ﻿using TCGuestBook;
 
-Console.WriteLine("Welcome to the Guest Book App");
-Console.WriteLine("-----------------------------------------------");
+Party.WelcomeUser();
 
 Dictionary<string, int> guestBook = Party.GetPartyInfo();
 
 Party.PrintGuestBookInfo(guestBook);
 
-Console.WriteLine("\nThank you for using the Guest Book App");
-Console.WriteLine("Goodbye");
+Party.Goodbye();
 
 Console.ReadLine();
