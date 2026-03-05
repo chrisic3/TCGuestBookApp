@@ -16,8 +16,6 @@ namespace TCGuestBook
 
         public static Dictionary<string, int> GetPartyInfo()
         {
-            bool isDone = false;
-            string anotherParty;
             Dictionary<string, int> guestBook = new Dictionary<string, int>();
 
             do
@@ -26,12 +24,11 @@ namespace TCGuestBook
 
                 int partyCount = GetPartyCount();
 
-               guestBook.Add(name, partyCount);
+                guestBook.Add(name, partyCount);
 
-                Console.Write("\nIs there another party to enter? (y/n): ");
-                anotherParty = Console.ReadLine();
-
-            } while (anotherParty.ToLower() == "y");
+                // Optional way without variables
+                //guestBook.Add(GetPartyName(), GetPartyCount());
+            } while (AskToContinue());
 
             return guestBook;
         }
@@ -89,6 +86,14 @@ namespace TCGuestBook
             } while (!isValid);
 
             return output;
+        }
+
+        private static bool AskToContinue()
+        {
+            Console.Write("\nIs there another party to enter? (y/n): ");
+            string output = Console.ReadLine();
+
+            return output.ToLower() == "y";
         }
     }
 }
